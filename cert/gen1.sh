@@ -14,5 +14,5 @@ openssl req -new -key server1.key -out server1.csr \
   -subj "/C=GB/L=China/O=primihub/CN=chainmaker_server1"
 
 openssl x509 -req -days 3650 \
-   -in server.1csr -out server.1crt \
+   -in server1.csr -out server1.crt \
    -CA ca1.crt -CAkey ca1.key -CAcreateserial
