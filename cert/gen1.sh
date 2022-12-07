@@ -1,31 +1,18 @@
 #!/bin/bash
 ############# CA certificate ####################### 
-openssl genrsa -out ca.key 2048
-openssl req -new -key ca.key -out ca.csr \
-  -subj "/C=GB/L=China/O=primihub/CN=chainmaker"
-openssl req -new -x509 -days 3650 -key ca.key -out ca.crt \
-   -subj "/C=GB/L=China/O=primihub/CN=chainmaker"
+openssl genrsa -out ca1.key 2048
+openssl req -new -key ca1.key -out ca1.csr \
+  -subj "/C=GB/L=China/O=primihub/CN=chainmaker-1"
+openssl req -new -x509 -days 3650 -key ca1.key -out ca1.crt \
+   -subj "/C=GB/L=China/O=primihub/CN=chainmaker-1"
 
 
 ############server side certificate #################
-openssl genrsa -out server.key 2048
+openssl genrsa -out server1.key 2048
 
-openssl req -new -key server.key -out server.csr \
-  -subj "/C=GB/L=China/O=primihub/CN=chainmaker_server"
+openssl req -new -key server1.key -out server1.csr \
+  -subj "/C=GB/L=China/O=primihub/CN=chainmaker_server1"
 
 openssl x509 -req -days 3650 \
-   -in server.csr -out server.crt \
-   -CA ca.crt -CAkey ca.key -CAcreateserial
-
-############client side certificate #################
-# 生成.key  私钥文件
-openssl genrsa -out client.key 2048
-
-# 生成.csr 证书签名请求文件
-openssl req -new -key client.key -out client.csr \
-  -subj "/C=GB/L=China/O=primihub/CN=chainmaker_client"
-
-# 签名生成.crt/.pem 证书文件
-openssl x509 -req -days 3650 \
-   -in client.csr -out client.crt \
-   -CA ca.crt -CAkey ca.key -CAcreateserial
+   -in server.1csr -out server.1crt \
+   -CA ca1.crt -CAkey ca1.key -CAcreateserial
